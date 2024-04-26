@@ -6,6 +6,10 @@ if 'page' not in st.session_state:
     st.session_state.page = 'home'
 if 'interests' not in st.session_state:
     st.session_state.interests = []
+if 'current_page' not in st.session_state:
+    st.session_state.current_page = 1
+
+
 
 def main():
     # Home page
@@ -51,34 +55,60 @@ def main():
                 }
                 with open('customer_data.json', 'w') as json_file:
                     json.dump(data, json_file, indent=4)
-            # print("submitted")
-            # if customer_id and st.session_state.interests:
-            #     st.session_state.page = 'second'
-            #     # Optionally store or process the data here
-            #     if customer_id and st.session_state.interests:
-            #         data = {
-            #             "customer_id": customer_id,
-            #             "interests": st.session_state.interests
-            #         }
-            #         st.write("JSON Output:")
-            #         st.json(data)
 
 
-            # else:
-            #     st.error("Please fill in the customer ID and add at least one interest.")
+
+            else:
+                st.error("Please fill in the customer ID and add at least one interest.")
             if customer_id and st.session_state.interests:
                 st.session_state.page = 'second'
+
+
+
+
+
+
     # Second page
+
     elif st.session_state.page == 'second':
+        st.set_page_config(layout="wide")
+        st.title("YouTube Videos")
 
-        st.title("Hello World")
-        # st.write("Here is a video from YouTube:")
-        # # YouTube video URL
-        # video_url = 'https://www.youtube.com/watch?v=cw34KMPSt4k'
-        # # Embed YouTube video
-        # st.video(video_url)
+        # Read video links from the text file
+        with open('videos.txt', 'r') as file:
+            video_links = [link.strip() for link in file.readlines()]
+
+        # Define the number of columns
+        cols = st.columns(4)  # Creates 4 columns
+
+        # Pagination logic
+        num_columns = 4
+        num_videos = len(video_links)
+        num_pages = (num_videos - 1) // num_columns + 1
+
+        start_index = (st.session_state.current_page - 1) * num_columns
+        end_index = min(start_index + num_columns, num_videos)
+
+        # Display videos for the current page
+        for index in range(start_index, end_index):
+            with cols[index % num_columns]:
+                st.markdown(
+                    f"""
+                    <iframe width="100%" height="200px" src="{video_links[index].replace('watch?v=', 'embed/')}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    """,
+                    unsafe_allow_html=True
+                )
 
 
+        # Pagination controls
+        if num_pages > 1:
+            st.write("")  # Add some space between videos and pagination controls
+            if st.session_state.current_page > 1:
+                if st.button("Previous"):
+                    st.session_state.current_page -= 1
+            if st.session_state.current_page < num_pages:
+                if st.button("Next"):
+                    st.session_state.current_page += 1
 
 if __name__ == "__main__":
     main()
