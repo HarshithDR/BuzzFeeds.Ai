@@ -1,6 +1,5 @@
 import mysql.connector
 
-# db = ""
 def setup_db():
   # Using mysql-connector-python
   mydb = mysql.connector.connect(
