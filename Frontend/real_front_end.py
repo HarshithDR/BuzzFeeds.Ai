@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-
+import streamlit.components.v1 as components
 # Initialize a session state variable for page management and interests
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
@@ -9,7 +9,12 @@ if 'interests' not in st.session_state:
 if 'current_page' not in st.session_state:
     st.session_state.current_page = 1
 
-
+# Function to create an iframe embedding a website
+def create_website_iframe(url, width=100, height=300):
+    iframe = f"""
+    <iframe src="{url}" width="{width}%" height="{height}px" frameborder="0" allowfullscreen></iframe>
+    """
+    return iframe
 def main():
 
     # Home page
@@ -131,9 +136,39 @@ def main():
         # display_category_videos("Interest 2", "interest2.txt")
         # display_category_videos("Interest 3", "interest3.txt")
 
+
+# Assume this is part of the logic handling page 'third'
+
     elif st.session_state.page == 'third':
-        st.write("Hello World")
-        if st.button("Back"):
-            st.session_state.page = "second"
+
+        # Set the layout to "wide"
+
+        st.set_page_config(layout="wide")
+
+        # Create columns
+
+        col1, col2 = st.columns(2)
+
+        # Left column: Embed the website
+
+        with col1:
+
+            st.subheader("Embedded Website")
+
+            # Render the iframe with the desired website
+            url = "https://gat.ac.in/"
+            components.html(create_website_iframe(url, 100, 800), height=800)
+
+        # Right column: Place for additional content or interactions
+
+        with col2:
+
+            st.subheader("Details")
+
+            st.write("Here you can place additional information or interactive elements related to the embedded website.")
+
+            if st.button("Back to Second Page", key="back_to_second"):
+                st.session_state.page = 'second'
+
 if __name__ == "__main__":
     main()
