@@ -12,14 +12,21 @@ def sanitize_filename(title):
 
 def save_article_json(article_data):
     """Saves the article data in a JSON format file named after the article's title."""
-    filename = "/Backend/json_folder/" + sanitize_filename(article_data['title']) + '.json'
-    try:
-        with open(filename, 'w', encoding='utf-8') as file:
-            json.dump(article_data, file, ensure_ascii=False, indent=4)
-        print(f"Article data saved to '{filename}'")
-        return filename
-    except IOError as e:
-        print(f"Failed to save article data. Error: {e}")
+    if article_data.get("content") == "Failed to retrieve article content":
+        return "there was no content in that page"
+    else:
+        if sanitize_filename(article_data['title']) == 'Removed':
+            return "but removed!"
+        else:
+            filename = "Backend/json_folder/" + sanitize_filename(article_data['title']) + '.json'
+            try:
+                with open(filename, 'w', encoding='utf-8') as file:
+                    json.dump(article_data, file, ensure_ascii=False, indent=4)
+                print(f"Article data saved to '{filename}'")
+                return filename
+            except IOError as e:
+                print(f"Failed to save article data. Error: {e}")
+        
 
 def parse_article_content(html_content):
     """Parses the HTML content to extract contemmmnt paragraphs."""
