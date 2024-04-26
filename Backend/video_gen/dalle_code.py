@@ -1,10 +1,9 @@
-# use this code as reference to integrate dalle
-
-# refer - https://platform.openai.com/docs/guides/images/language-specific-tips
 import openai
+import os
+from dotenv import load_dotenv
 
-# Your OpenAI API key
-openai.api_key = 'sk-proj-mqjm2SJlMwbAiA68xN5vT3BlbkFJlp04U7rxJERJM1W0JqnF'
+load_dotenv()
+openai.api_key = os.environ['OPENAI_API_KEY']
 
 def generate_image(prompt, n=1, size="1024x1024"):
     try:
@@ -22,5 +21,4 @@ def generate_image(prompt, n=1, size="1024x1024"):
         print(f"An error occurred: {e}")
 
 # Example usage
-generate_image("A futuristic cityscape at sunset, vivid colors, hyper-detailed, digital art")
-
+# generate_image("girl in burka")
