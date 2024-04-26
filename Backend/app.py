@@ -26,7 +26,7 @@ def chat_query():
     data = request.json
     user_question=data.get('question')
     if user_question:
-        bot_response=run_chatbot(user_question)
+        # bot_response=run_chatbot(user_question)
         return jsonify({'Response':bot_response})
     else:
         return jsonify({'Error':'No Question !!'})
