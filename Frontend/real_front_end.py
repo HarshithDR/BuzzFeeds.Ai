@@ -10,8 +10,8 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = 1
 
 
-
 def main():
+
     # Home page
     if st.session_state.page == 'home':
         st.title("Customer Interest Form")
@@ -71,47 +71,58 @@ def main():
     # Second page
 
     elif st.session_state.page == 'second':
+
         st.set_page_config(layout="wide")
-        st.title("YouTube Videos")
+        st.title("Featured Videos")
 
-        # Read video links from the text file
-        with open('videos.txt', 'r') as file:
-            video_links = [link.strip() for link in file.readlines()]
+        # Function to load video links from a file and display them
+        def display_category_videos(category_name, file_name):
+            st.header(category_name)
 
-        # Define the number of columns
-        cols = st.columns(4)  # Creates 4 columns
+            # Read video links from the text file
+            with open(file_name, 'r') as file:
+                video_links = [link.strip() for link in file.readlines()]
 
-        # Pagination logic
-        num_columns = 4
-        num_videos = len(video_links)
-        num_pages = (num_videos - 1) // num_columns + 1
+            # Define the number of columns
+            cols = st.columns(4)  # Creates 4 columns
 
-        start_index = (st.session_state.current_page - 1) * num_columns
-        end_index = min(start_index + num_columns, num_videos)
+            # Pagination logic
+            num_columns = 4
+            num_videos = len(video_links)
+            num_pages = (num_videos - 1) // num_columns + 1
 
-        # Display videos for the current page
-        for index in range(start_index, end_index):
-            with cols[index % num_columns]:
-                st.markdown(
-                    f"""
-                    <iframe width="100%" height="200px" src="{video_links[index].replace('watch?v=', 'embed/')}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    """,
-                    unsafe_allow_html=True
-                )
+            # Ensure each category has its own page tracking
+            if f'current_page_{category_name}' not in st.session_state:
+                st.session_state[f'current_page_{category_name}'] = 1
 
+            start_index = (st.session_state[f'current_page_{category_name}'] - 1) * num_columns
+            end_index = min(start_index + num_columns, num_videos)
 
+            # Display videos for the current page
+            for index in range(start_index, end_index):
+                with cols[index % num_columns]:
+                    st.markdown(
+                        f"""
+                        <iframe width="100%" height="250px" src="{video_links[index].replace('watch?v=', 'embed/')}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        """,
+                        unsafe_allow_html=True
+                    )
 
-# hi
+            # Pagination controls
+            if num_pages > 1:
+                st.write("")  # Add some space between videos and pagination controls
+                if st.session_state[f'current_page_{category_name}'] > 1:
+                    if st.button("Previous", key=f'prev_{category_name}'):
+                        st.session_state[f'current_page_{category_name}'] -= 1
+                if st.session_state[f'current_page_{category_name}'] < num_pages:
+                    if st.button("Next", key=f'next_{category_name}'):
+                        st.session_state[f'current_page_{category_name}'] += 1
 
-        # Pagination controls
-        if num_pages > 1:
-            st.write("")  # Add some space between videos and pagination controls
-            if st.session_state.current_page > 1:
-                if st.button("Previous"):
-                    st.session_state.current_page -= 1
-            if st.session_state.current_page < num_pages:
-                if st.button("Next"):
-                    st.session_state.current_page += 1
+        # Display categories
+        display_category_videos("Featured Videos", "videos.txt")
+        display_category_videos("Interest 1", "videos.txt")
+        # display_category_videos("Interest 2", "interest2.txt")
+        # display_category_videos("Interest 3", "interest3.txt")
 
 if __name__ == "__main__":
     main()
