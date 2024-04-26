@@ -1,4 +1,6 @@
 # use this code as reference to integrate dalle
+
+# refer - https://platform.openai.com/docs/guides/images/language-specific-tips
 import openai
 
 # Your OpenAI API key
