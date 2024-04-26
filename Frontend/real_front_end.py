@@ -107,6 +107,13 @@ def main():
                         """,
                         unsafe_allow_html=True
                     )
+                    # Button for internal navigation
+                    if st.button("View Section", key=f'view_{category_name}_{index}'):
+                        st.session_state.page = 'third'
+                    blog_url = "https://medium.com/@ccibeekeoc42/unlocking-low-resource-language-understanding-enhancing-translation-with-llama-3-fine-tuning-df8f1d04d206"   # Default to '#' if no URL is provided for an index
+
+                    # if blog_url != "#":
+                    #     st.markdown(f"[View Article]({blog_url})", unsafe_allow_html=True)
 
             # Pagination controls
             if num_pages > 1:
@@ -124,5 +131,9 @@ def main():
         # display_category_videos("Interest 2", "interest2.txt")
         # display_category_videos("Interest 3", "interest3.txt")
 
+    elif st.session_state.page == 'third':
+        st.write("Hello World")
+        if st.button("Back"):
+            st.session_state.page = "second"
 if __name__ == "__main__":
     main()
