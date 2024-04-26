@@ -23,3 +23,4 @@ def generate_image(prompt, n=1, size="1024x1024"):
 
 # Example usage
 generate_image("A futuristic cityscape at sunset, vivid colors, hyper-detailed, digital art")
+
