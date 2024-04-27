@@ -139,33 +139,43 @@ def main():
 
 # Assume this is part of the logic handling page 'third'
 
-    elif st.session_state.page == 'third':
+    elif st.session_state.get('page') == 'third':
+        st.set_page_config(layout="wide")  # Set the layout to "wide"
 
-        # Set the layout to "wide"
-
-        st.set_page_config(layout="wide")
-
-        # Create columns
-
-        col1, col2 = st.columns(2)
-
-        # Left column: Embed the website
+        col1, col2 = st.columns([1, 1])  # Create columns
 
         with col1:
-
             st.subheader("Embedded Website")
-
-            # Render the iframe with the desired website
             url = "https://gat.ac.in/"
             components.html(create_website_iframe(url, 100, 800), height=800)
 
-        # Right column: Place for additional content or interactions
-
         with col2:
+            st.header("Chat with Us")
+            chat_input = st.text_input("", placeholder="Type your message here...", key="chat_input")
 
-            st.subheader("Details")
+            # Layout for Send and Clear Chat buttons
+            col_send, col_clear = st.columns(2)
+            with col_send:
+                if st.button("Send", key="send_button"):
+                    # Append user's question to the chat history
+                    response = "Hello, how are you doing?"
+                    if "chat_history" not in st.session_state:
+                        st.session_state.chat_history = []
+                    st.session_state.chat_history.append(f"You: {chat_input}")
+                    st.session_state.chat_history.append(f"Response: {response}")
+            with col_clear:
+                if st.button("Clear Chat", key="clear_chat"):
+                    # Clear the chat history
+                    st.session_state.chat_history = []
 
-            st.write("Here you can place additional information or interactive elements related to the embedded website.")
+            # Display chat history
+            if "chat_history" in st.session_state:
+                for index, chat in enumerate(st.session_state["chat_history"]):
+                    # Alternate color for user and response
+                    color = "#e1f5fe" if "You:" in chat else "#e0e0e0"
+                    st.markdown(
+                        f"<div style='background-color: {color}; padding: 10px; border-radius: 5px; margin: 5px 0;'>{chat}</div>",
+                        unsafe_allow_html=True)
 
             if st.button("Back to Second Page", key="back_to_second"):
                 st.session_state.page = 'second'
