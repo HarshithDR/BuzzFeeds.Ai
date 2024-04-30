@@ -19,6 +19,28 @@ def create_website_iframe(url, width=100, height=300):
     <iframe src="{url}" width="{width}%" height="{height}px" frameborder="0" allowfullscreen></iframe>
     """
     return iframe
+
+
+def embed_website(url):
+    iframe_style = """
+    <style>
+    .scrolling-wrapper {
+        width: 100%;
+        height: 600px; /* Set the desired height for the scrollable iframe */
+        overflow-y: auto; /* Enable vertical scrollbar */
+        border: 1px solid #ddd; /* Optional: Add border for visual clarity */
+    }
+    </style>
+
+    """
+
+    st.markdown(iframe_style, unsafe_allow_html=True)
+    # st.markdown('<div class="scrolling-wrapper"><iframe src="https://en.wikipedia.org/wiki/Main_Page" width="100%" height="100%"></iframe></div>',unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="scrolling-wrapper"><iframe src="{url}" width="100%" height="100%"></iframe></div>',
+        unsafe_allow_html=True)
+
+
 def main():
 
     # Home page
@@ -72,7 +94,7 @@ def main():
             if customer_id and st.session_state.interests:
                 st.session_state.page = 'second'
 
-
+            st.experimental_rerun()
 
 
 
@@ -119,10 +141,9 @@ def main():
                     # Button for internal navigation
                     if st.button("View Section", key=f'view_{category_name}_{index}'):
                         st.session_state.page = 'third'
-                    blog_url = "https://medium.com/@ccibeekeoc42/unlocking-low-resource-language-understanding-enhancing-translation-with-llama-3-fine-tuning-df8f1d04d206"   # Default to '#' if no URL is provided for an index
+                        st.experimental_rerun()
 
-                    # if blog_url != "#":
-                    #     st.markdown(f"[View Article]({blog_url})", unsafe_allow_html=True)
+
 
             # Pagination controls
             if num_pages > 1:
@@ -130,9 +151,11 @@ def main():
                 if st.session_state[f'current_page_{category_name}'] > 1:
                     if st.button("Previous", key=f'prev_{category_name}'):
                         st.session_state[f'current_page_{category_name}'] -= 1
+                        st.experimental_rerun()
                 if st.session_state[f'current_page_{category_name}'] < num_pages:
                     if st.button("Next", key=f'next_{category_name}'):
                         st.session_state[f'current_page_{category_name}'] += 1
+                        st.experimental_rerun()
 
         # Display categories
         display_category_videos("Featured Videos", "videos.txt")
@@ -148,24 +171,7 @@ def main():
 
         col1, col2 = st.columns([1, 1])  # Create columns
 
-        def embed_website(url):
-            iframe_style = """
-            <style>
-            .scrolling-wrapper {
-                width: 100%;
-                height: 600px; /* Set the desired height for the scrollable iframe */
-                overflow-y: auto; /* Enable vertical scrollbar */
-                border: 1px solid #ddd; /* Optional: Add border for visual clarity */
-            }
-            </style>
-            
-            """
 
-            st.markdown(iframe_style, unsafe_allow_html=True)
-            # st.markdown('<div class="scrolling-wrapper"><iframe src="https://en.wikipedia.org/wiki/Main_Page" width="100%" height="100%"></iframe></div>',unsafe_allow_html=True)
-            st.markdown(
-                f'<div class="scrolling-wrapper"><iframe src="{url}" width="100%" height="100%"></iframe></div>',
-                unsafe_allow_html=True)
 
 
         with col1:
@@ -202,6 +208,7 @@ def main():
 
             if st.button("Back to Second Page", key="back_to_second"):
                 st.session_state.page = 'second'
+                st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
