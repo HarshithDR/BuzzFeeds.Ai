@@ -30,7 +30,7 @@ def set_userinterest(useremail,interests):
 def set_user_interests(useremail,interests):
     print(useremail,interests)
     return set_userinterest(useremail,interests)
-  
+
 def get_feeddetails(interests,userId):
   try:
       db = setup_db()
