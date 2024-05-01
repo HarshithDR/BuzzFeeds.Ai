@@ -40,7 +40,6 @@ def embed_website(url):
         f'<div class="scrolling-wrapper"><iframe src="{url}" width="100%" height="100%"></iframe></div>',
         unsafe_allow_html=True)
 
-
 def main():
 
     # Home page
@@ -96,11 +95,7 @@ def main():
 
             st.experimental_rerun()
 
-
-
-
     # Second page
-
     elif st.session_state.page == 'second':
 
         st.set_page_config(layout="wide")
@@ -171,12 +166,9 @@ def main():
 
         col1, col2 = st.columns([1, 1])  # Create columns
 
-
-
-
         with col1:
             st.subheader("Embedded Website")
-            embed_website(url = 'https://en.wikipedia.org/wiki/Main_Page')
+            embed_website(url = 'https://www.wired.com/2017/08/instagram/')
 
         with col2:
             st.header("Chat with Us")
