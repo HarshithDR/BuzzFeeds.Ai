@@ -95,4 +95,4 @@ def newsapi_fun(interest):
     filename_list_send = process_articles(interest)
     return filename_list_send
 
-newsapi_fun("ai")
+# newsapi_fun("ai")

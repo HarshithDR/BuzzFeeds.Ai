@@ -36,7 +36,7 @@ def get_feeddetails(interests,userId):
       db = setup_db()
       cursor = db.cursor()
       # Constructing the placeholders for the IN clause
-      placeholders = ', '.join(['%s' for _ in range(len(interests))])
+      placeholders = ','.join(['%s' for _ in range(len(interests))])
       sql = f"SELECT * FROM summaraize.newsfeedinfo WHERE domain IN ({placeholders}) LIMIT 25;"
       cursor.execute(sql, (interests))
       return {"success" : True, "user" : userId, "newsFeed" : cursor.fetchall()}
@@ -56,7 +56,6 @@ def get_userinterests(userid):
 def accessuserfeed(userId):
     user_interests = get_userinterests(userId)
     print("here I am",user_interests)
-    #lst_user_interests = user_interests.split(",")
-    #get_feeddetails(lst_user_interests,userId)
+    lst_user_interests = user_interests.split(",")
+    get_feeddetails(lst_user_interests,userId)
     return {'userId': userId, 'message': 'Im still under build'}
-  

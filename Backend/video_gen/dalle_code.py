@@ -21,4 +21,4 @@ def generate_image(prompt, n=1, size="1024x1024"):
         print(f"An error occurred: {e}")
 
 # Example usage
-# generate_image("girl in burka")
+# generate_image("boy standing in a beach")

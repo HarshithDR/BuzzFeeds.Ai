@@ -8,12 +8,12 @@ print(setup_db())
 @app.route('/interests', methods=['POST','GET'])
 def userinterest():
     data = request.json
-    user_email = data.get('useremail')
-    user_interest = data.get('user_interest')
+    user_email = data.get('customer_id')
+    user_interest = data.get('interests')
     report = set_userinterest(user_email,user_interest)
     # if report['success']:
     #     flow.start()  
-    print(2342342143)
+    # print(2342342143)
     return report
 
 @app.route('/newsfeed', methods=['GET'])
