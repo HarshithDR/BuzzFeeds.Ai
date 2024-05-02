@@ -49,7 +49,7 @@ def url_source():
     url = data.get('url')
     return "got the url"
 
-@app.route('/chat_query', methods=['POST'])
+@app.route('/chat_query', methods=['POST','GET'])
 def chat_query():
     data = request.json
     user_question=data.get('question')
