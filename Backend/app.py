@@ -28,6 +28,7 @@ def newsfeed():
     # return accessuserfeed(request.args.get('user_id'))
     return "got your message"
 
+
 @app.route('/url_source', methods = ['POST','GET'])
 def url_source():
     data = request.json
