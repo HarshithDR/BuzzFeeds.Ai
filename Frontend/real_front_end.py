@@ -11,7 +11,7 @@ from streamlit_lottie import st_lottie
 import json
 # Suppress the specific warning related to calling st.rerun() within a callback
 warnings.filterwarnings('ignore', message="calling st.rerun() within a callback is a no-op")
-
+import requests
 
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
@@ -20,12 +20,30 @@ if 'interests' not in st.session_state:
 if 'current_page' not in st.session_state:
     st.session_state.current_page = 1
 
+
+cust_id = []
 # Function to create an iframe embedding a website
 def create_website_iframe(url, width=100, height=300):
     iframe = f"""
     <iframe src="{url}" width="{width}%" height="{height}px" frameborder="0" allowfullscreen></iframe>
     """
     return iframe
+
+
+def send_customer_id(customer_id):
+    # URL to which the request will be sent
+    news_feed_url = 'http://127.0.0.1:5001/newsfeed'
+
+    # Send a GET request with customer_id as a query parameter
+    response = requests.get(news_feed_url, params={"customer_id": customer_id})
+
+    # Check the response
+    if response.status_code == 200:
+        print("Data successfully retrieved!")
+        return response.text
+    else:
+        print(f"Failed to retrieve data: {response.status_code} - {response.text}")
+        return None
 
 
 def load_lottiefile(filepath: str):
@@ -107,8 +125,19 @@ def main():
                     "customer_id": customer_id,
                     "interests": st.session_state.interests
                 }
-                with open('interests_reference.json', 'w') as json_file:
-                    json.dump(data, json_file, indent=4)
+
+                cust_id.append(data["customer_id"])
+                # URL to which the request will be sent
+                interests_url = 'http://127.0.0.1:5001/interests'
+
+                # Send a POST request
+                response = requests.post(interests_url, json=data)
+
+                # Check the response
+                if response.status_code == 200:
+                    print("Data successfully sent to the server!")
+                else:
+                    print(f"Failed to send data: {response.status_code} - {response.text}")
 
 
 
@@ -117,6 +146,10 @@ def main():
             if customer_id and st.session_state.interests:
                 st.session_state.page = 'second'
 
+                #sending the id to newsfeed
+                send_customer_id(cust_id[0])
+                cust_id.pop()
+                # print(cust_id)
             st.experimental_rerun()
 
     # Second page
