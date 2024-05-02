@@ -6,6 +6,7 @@ from moviepy.editor import TextClip, CompositeVideoClip, ColorClip, concatenate_
 import numpy as np
 import uuid
 
+
 model_path = "Backend/audio_convert_and_final_video_generator/vosk_model/vosk-model-small-en-us-0.15"
 audio_file = "Backend/audio_convert_and_final_video_generator/temp_files/output_audio.mp4"
 output_json_file = "Backend/audio_convert_and_final_video_generator/temp_files/recognized_speech.json"

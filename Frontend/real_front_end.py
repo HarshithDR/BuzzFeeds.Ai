@@ -1,11 +1,17 @@
 # run this code using this command
-# streamlit run your_script.py --server.baseUrlPath /.streamlit/config.toml
+# streamlit run real_front_end.py --server.baseUrlPath /.streamlit/config.toml
 
 import streamlit as st
 import json
 import streamlit.components.v1 as components
 # Initialize a session state variable for page management and interests
 import streamlit.components.v1
+import warnings
+
+# Suppress the specific warning related to calling st.rerun() within a callback
+warnings.filterwarnings('ignore', message="calling st.rerun() within a callback is a no-op")
+
+
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 if 'interests' not in st.session_state:
