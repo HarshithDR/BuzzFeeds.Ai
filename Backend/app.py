@@ -10,7 +10,7 @@ def userinterest():
     data = request.json
     user_email = data.get('customer_id')
     user_interest = data.get('interests')
-    report = set_userinterest(user_email,user_interest)
+    report = set_user_interests(user_email,user_interest)
     # if report['success']:
     #     flow.start()  
     # print(2342342143)

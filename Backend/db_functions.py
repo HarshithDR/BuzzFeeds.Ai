@@ -47,7 +47,7 @@ def get_userinterests(userid):
     try:
         db = setup_db()
         cursor = db.cursor()
-        sql = "SELECT interests FROM summaraize.interests where id = %s"
+        sql = "SELECT interests FROM summaraize.interests where useremailid = %s"
         cursor.execute(sql, (userid))
         return cursor.fetchall()
     except Exception as e:
@@ -56,6 +56,8 @@ def get_userinterests(userid):
 def accessuserfeed(userId):
     user_interests = get_userinterests(userId)
     print("here I am",user_interests)
-    lst_user_interests = user_interests.split(",")
+    lst_user_interests = user_interests
     get_feeddetails(lst_user_interests,userId)
     return {'userId': userId, 'message': 'Im still under build'}
+
+accessuserfeed('testuser123@gmail.com')
