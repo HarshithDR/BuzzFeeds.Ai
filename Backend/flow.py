@@ -7,8 +7,12 @@ from audio_convert_and_final_video_generator.text_to_audio_converter import *
 from db_functions import *
 from chat_query.query import *
 
-
-def q_and_a(id, question):
+def set_query_id(id):
+    IdStore.add_id(id)
+    print("id stored" + str(id))
+ 
+def q_and_a(question):
+    id = IdStore.get_id()
     json_path = retrieve_json_path_from_id(id)[0][0]
     answer = file_load(json_path,question)
     return answer

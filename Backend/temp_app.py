@@ -14,9 +14,9 @@ def userinterest():
     user_interest = data.get('interests')
     print(user_interest, customer_id)
     report = set_user_interests(customer_id,user_interest)
-    # if report['success']:
-    #     print("flow started running background")
-    #     start_flow()
+    if report['success']:
+        print("flow started running background")
+        start_flow()
     # print(2342342143)
     return report
 
@@ -33,22 +33,15 @@ def newsfeed():
 
 
     # Retrieve customer_id from query parameters
-    customer_id = request.args.get('customer_id')
+    data = request.json
+    # customer_id = request.args.get('customer_id')
+    customer_id = data.get('customer_id')
+    print(customer_id)
     if customer_id:
         print(f"Received customer_id: {customer_id}")
         # Here, you can process the customer_id as needed
 
-        output = {
-            "interest1": [
-                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com","dbid":123},
-                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com","dbid":456}
-                # Add other items here if necessary
-            ],
-            "interest2": [
-                {"video": "Backend/final_video_folder/output_44699a1d-0295-41d3-8f2b-194ec63baca3.mp4", "link": "https://www.wikipedia.com","dbid":789}  # Example placeholder
-                # Add other items here if necessary
-            ]
-        }
+        output = accessuserfeed(customer_id)
 
         return output, 200
     else:
@@ -59,8 +52,9 @@ def newsfeed():
 def url_source():
     data = request.json
     id = data.get('id')
-    print(id)
-    return {}
+    # print(id)
+    set_query_id(id)
+    return ["got the id"+id]
 
 @app.route('/chat_query', methods=['POST','GET'])
 def chat_query():
@@ -72,7 +66,8 @@ def chat_query():
     # else:
     #     return jsonify({'Error':'No Question !!'})
     print(user_question)
-    return "hi how are you?"
+    answer = q_and_a(user_question)
+    return answer
 
 if __name__ == '__main__':
     # Run the app on http://localhost:5000/ by default

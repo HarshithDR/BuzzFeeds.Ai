@@ -3,6 +3,16 @@ import os
 from dotenv import load_dotenv
 import json
 
+class IdStore:
+    id = 0
+    @classmethod
+    def add_id(cls, id):
+        cls.id = id
+
+    @classmethod
+    def get_id(cls):
+        return cls.id
+
 load_dotenv()
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 model = genai.GenerativeModel('gemini-pro')

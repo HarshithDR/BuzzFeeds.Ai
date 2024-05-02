@@ -57,15 +57,15 @@ def get_userinterests(userid):
     except Exception as e:
         return {"success" : False, "error_message" : str(e)}
 
-def accessuserfeed(userId):
-    user_interests = get_userinterests(userId)
-    # print("here I am",user_interests)
-    fields = [field.strip() for row in user_interests for field in row[0].split(',')]
-    unique_fields = list(set(fields))
-    # print(unique_fields)
-    lst_user_interests = unique_fields
-    # print(get_feeddetails(lst_user_interests,userId))
-    return get_feed_details(lst_user_interests,userId)
+# def accessuserfeed(userId):
+#     user_interests = get_userinterests(userId)
+#     # print("here I am",user_interests)
+#     fields = [field.strip() for row in user_interests for field in row[0].split(',')]
+#     unique_fields = list(set(fields))
+#     # print(unique_fields)
+#     lst_user_interests = unique_fields
+#     # print(get_feeddetails(lst_user_interests,userId))
+#     return get_feed_details(lst_user_interests,userId)
 
 def set_feed_details(data):
     # print(data)
@@ -84,8 +84,7 @@ def set_feed_details(data):
         return {"success" : True, "record_id" : last_insert_id}
     except Exception as e:
         return {"success" : False, "error_message" : str(e)}
-    
-    
+       
 def retrieve_json_path_from_id(id):
     try:
         db = setup_db()
@@ -98,5 +97,27 @@ def retrieve_json_path_from_id(id):
     
 # print(retrieve_json_path_from_id(1))
         
-# print(accessuserfeed('testuser123@gmail.com'))
+        
+def accessuserfeed(userId):
+    user_interests = get_userinterests(userId)
+    result = {}
+    for row in user_interests:
+        interests_str = row[0]  # Extract the interests string from the tuple
+        interests_list = interests_str.split(',')  # Split the string into a list of individual interests
+        for interest in interests_list:
+            feed_details = get_feed_details([interest], userId)
+            if feed_details["success"]:
+                feed_data = feed_details["newsFeed"]
+                interest_data = []
+                for feed_item in feed_data:
+                    interest_data.append({
+                        "video": feed_item[3],
+                        "link": feed_item[2],
+                        "dbid": feed_item[0]
+                    })
+                result.setdefault(interest, []).extend(interest_data)
+    return result
+
+# print(accessuserfeed('1'))
 # print(set_feed_details({"interest":"ai","json_url":"lasdghasd.json","video_url":"http://sldfhsd.com"}))
+
