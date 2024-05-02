@@ -170,8 +170,27 @@ def main():
                             st.video(video_path)
                             if st.button('Watch on Website', key=f'btn_{interest}_{i}'):
                                 st.session_state['video_url'] = video_url  # Store URL in session_state
-                                st.session_state.page = 'third'  # Navigate to the third page
-                                st.experimental_rerun()
+
+                                video_id = video_info['dbid']
+                                print(video_id)
+                                url_source = 'http://127.0.0.1:5001/url_source'
+                                data_id = {'id': video_id}
+
+                                response = requests.post(url_source, json=data_id)
+                                if response.status_code == 200:
+                                    print("ID successfully sent to the server!")
+                                    st.session_state.page = 'third'  # Navigate to the third page
+                                    st.experimental_rerun()
+                                    return response.json()
+                                    # Or handle the response as needed
+                                else:
+                                    st.error(f"Failed to send ID: {response.status_code} - {response.text}")
+                                    return None
+
+
+
+                                # st.session_state.page = 'third'  # Navigate to the third page
+                                # st.experimental_rerun()
             else:
                 st.write("No video data available")
 

@@ -42,12 +42,12 @@ def newsfeed():
 
         output = {
             "interest1": [
-                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com"},
-                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com"}
+                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com","dbid":123},
+                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com","dbid":456}
                 # Add other items here if necessary
             ],
             "interest2": [
-                {"video": "Backend/final_video_folder/output_44699a1d-0295-41d3-8f2b-194ec63baca3.mp4", "link": "https://www.wikipedia.com"}  # Example placeholder
+                {"video": "Backend/final_video_folder/output_44699a1d-0295-41d3-8f2b-194ec63baca3.mp4", "link": "https://www.wikipedia.com","dbid":789}  # Example placeholder
                 # Add other items here if necessary
             ]
         }
@@ -60,8 +60,9 @@ def newsfeed():
 @app.route('/url_source', methods = ['POST','GET'])
 def url_source():
     data = request.json
-    url = data.get('url')
-    return "got the url"
+    id = data.get('id')
+    print(id)
+    return {}
 
 @app.route('/chat_query', methods=['POST','GET'])
 def chat_query():
