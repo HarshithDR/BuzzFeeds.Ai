@@ -61,12 +61,25 @@
 
 
 # Output from the database
-data = [('testx, restx, actionx',), ('testx, restx, actionx',), ('testx, restx, actionx',), ('testx, restx, actionx',), ('testx, activex, actionx',), ('testx, activex, actionx',)]
+# data = [('testx, restx, actionx',), ('testx, restx, actionx',), ('testx, restx, actionx',), ('testx, restx, actionx',), ('testx, activex, actionx',), ('testx, activex, actionx',)]
 
-# Flatten the list of tuples and split each string on ','
-fields = [field.strip() for row in data for field in row[0].split(',')]
+# # Flatten the list of tuples and split each string on ','
+# fields = [field.strip() for row in data for field in row[0].split(',')]
 
-# Convert the list to a set to remove duplicates, then back to a list
-unique_fields = list(set(fields))
+# # Convert the list to a set to remove duplicates, then back to a list
+# unique_fields = list(set(fields))
 
-print(unique_fields)
+# print(unique_fields)
+
+# from dataclasses import dataclass
+
+# @dataclass
+class Position():
+    def __init__(self) -> None:
+        name = ""
+        lat = 0
+    
+data = Position()
+data.name = "sdhgsdfg"
+data.lat = 324
+print(data)
