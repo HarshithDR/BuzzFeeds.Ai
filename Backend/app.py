@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
-from db_functions import *
+
+# from db_functions import *
 
 app = Flask(__name__)
 
@@ -38,7 +39,19 @@ def newsfeed():
     if customer_id:
         print(f"Received customer_id: {customer_id}")
         # Here, you can process the customer_id as needed
-        return "got your message", 200
+
+        output = {
+            "interest1": [
+                {"video": "Backend\\json_folder\\Google_adds_more_AI_in_shopping.json", "link": "www.htolh.com"},
+                # Add other items here if necessary
+            ],
+            "interest2": [
+                {"video": "path_to_video_here", "link": "link_to_video_here"}  # Example placeholder
+                # Add other items here if necessary
+            ]
+        }
+
+        return output, 200
     else:
         return "No customer_id provided", 400
 

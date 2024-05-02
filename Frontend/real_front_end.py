@@ -39,8 +39,10 @@ def send_customer_id(customer_id):
 
     # Check the response
     if response.status_code == 200:
-        print("Data successfully retrieved!")
-        return response.text
+        # Print the JSON data received from the server
+        data = response.json()
+        print("Output from the server:", data)
+        return data
     else:
         print(f"Failed to retrieve data: {response.status_code} - {response.text}")
         return None
@@ -149,6 +151,7 @@ def main():
                 #sending the id to newsfeed
                 send_customer_id(cust_id[0])
                 cust_id.pop()
+
                 # print(cust_id)
             st.experimental_rerun()
 
@@ -210,10 +213,8 @@ def main():
                         st.experimental_rerun()
 
         # Display categories
-        display_category_videos("Featured Videos", "videos.txt")
         display_category_videos("Interest 1", "videos.txt")
-        # display_category_videos("Interest 2", "interest2.txt")
-        # display_category_videos("Interest 3", "interest3.txt")
+
 
 
 # Assume this is part of the logic handling page 'third'
