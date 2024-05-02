@@ -8,7 +8,7 @@ openai.api_key = os.environ['OPENAI_API_KEY']
 def generate_image(prompt, n=1, size="1024x1024"):
     try:
         response = openai.Image.create(
-            model="dall-e-2",  # Specify the model version
+            model="dall-e-3",  # Specify the model version
             prompt=prompt,
             n=n,
             size=size
@@ -17,8 +17,11 @@ def generate_image(prompt, n=1, size="1024x1024"):
         for i, image in enumerate(images):
             # This will print the URL of the generated image
             print(f"Image {i+1}: {image['url']}")
+        return image['url']
     except Exception as e:
         print(f"An error occurred: {e}")
+        print("trying again.................")
+        generate_image(prompt)
 
 # Example usage
 # generate_image("boy standing in a beach")

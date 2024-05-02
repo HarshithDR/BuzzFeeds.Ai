@@ -13,10 +13,11 @@ def sanitize_filename(title):
 def save_article_json(article_data):
     """Saves the article data in a JSON format file named after the article's title."""
     if article_data.get("content") == "Failed to retrieve article content":
-        return "there was no content in that page"
+        print ("there was no content in that page")
+        
     else:
         if sanitize_filename(article_data['title']) == 'Removed':
-            return "but removed!"
+            print("but removed!")
         else:
             filename = "Backend/json_folder/" + sanitize_filename(article_data['title']) + '.json'
             try:
@@ -52,7 +53,7 @@ def get_news_articles(query):
     parameters = {
         'q': query,
         'apiKey': api_key,
-        'pageSize': 10,  
+        'pageSize': 20,  
     }
     
     try:

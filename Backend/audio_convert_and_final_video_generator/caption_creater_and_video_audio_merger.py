@@ -6,7 +6,6 @@ from moviepy.editor import TextClip, CompositeVideoClip, ColorClip, concatenate_
 import numpy as np
 import uuid
 
-
 model_path = "Backend/audio_convert_and_final_video_generator/vosk_model/vosk-model-small-en-us-0.15"
 audio_file = "Backend/audio_convert_and_final_video_generator/temp_files/output_audio.mp4"
 output_json_file = "Backend/audio_convert_and_final_video_generator/temp_files/recognized_speech.json"
@@ -218,7 +217,7 @@ def final_video_generator(linelevel_subtitles):
         all_linelevel_splits.extend(out)
 
     # Load the input video
-    input_video = VideoFileClip("Backend\\summaraize_app\\audio_convert\\temp_files\\output_video.mp4")
+    input_video = VideoFileClip("Backend/audio_convert_and_final_video_generator/temp_files/output_video.mp4")
     # Get the duration of the input video
     input_video_duration = input_video.duration
     # Create a color clip with the given frame size, color, and duration
@@ -238,16 +237,17 @@ def final_video_generator(linelevel_subtitles):
     # Set the audio of the final video to be your audio file
     final_video = CompositeVideoClip([looped_video] + all_linelevel_splits)
     final_video = final_video.set_audio(audio_clip)
-    random_filename = "Backend/summaraize_app/final_video_folder/output_" + str(uuid.uuid4()) + ".mp4"
+    random_filename = "Backend/final_video_folder/output_" + str(uuid.uuid4()) + ".mp4"
     # Save the final clip as a video file with the audio included
     final_video.write_videofile(random_filename, fps=24, codec="libx264", audio_codec="aac")
     return random_filename
 
 
-def start():
+def gen_start():
     audio_to_text()
     linelevel_subtitles = json_extract()
     video_path = final_video_generator(linelevel_subtitles)
     return video_path
 
 # print(start())
+# print(gen_start())

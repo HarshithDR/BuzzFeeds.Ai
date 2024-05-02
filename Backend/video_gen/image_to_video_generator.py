@@ -43,7 +43,7 @@ def video_gen_fun(url):
     print(url_from_fal)
     parsed_data = url_from_fal
     video_url = parsed_data['video']['url']
-    save_path = "Backend\\temp_files\\"
+    save_path = "Backend/audio_convert_and_final_video_generator/temp_files/"
     download_video(video_url,save_path)
     return True
 
