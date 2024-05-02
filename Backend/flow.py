@@ -52,7 +52,7 @@ def final_video_creater():
     video_path = gen_start()
     return video_path
 
-def start(interest):
+def start_flow(interest):
     data = DataObject()
     data.interest = interest
     list_of_all_json_filepaths = api_and_json_extraction(interest)
