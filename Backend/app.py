@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
-
-# from db_functions import *
+from flow import *
+from db_functions import *
 
 app = Flask(__name__)
 
@@ -13,14 +13,12 @@ def userinterest():
     customer_id = data.get('customer_id')
     user_interest = data.get('interests')
     print(user_interest, customer_id)
-    # report = set_user_interests(user_email,user_interest)
+    report = set_user_interests(customer_id,user_interest)
     # if report['success']:
-    #     flow.start()  
+    #     print("flow started running background")
+    #     start_flow()  
     # print(2342342143)
-    # return report
-    return "asahdfoiahsdgfasdfasdf"
-
-
+    return report
 
 @app.route('/newsfeed', methods=['POST','GET'])
 def newsfeed():

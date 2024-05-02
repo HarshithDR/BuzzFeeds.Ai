@@ -37,9 +37,6 @@ if __name__ == '__main__':
         print("Process B was manually terminated after completion signal.")
 
 
-
-
-
     # if process_a.is_alive():
     #     process_a.terminate()
     #     print("Process A was manually terminated after completion signal.")
