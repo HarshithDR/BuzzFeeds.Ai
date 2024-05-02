@@ -109,10 +109,10 @@ def main():
                 }
 
                 # URL to which the request will be sent
-                url = 'http://127.0.0.1:5001/interests'
+                interests_url = 'http://127.0.0.1:5001/interests'
 
                 # Send a POST request
-                response = requests.post(url, json=data)
+                response = requests.post(interests_url, json=data)
 
                 # Check the response
                 if response.status_code == 200:
