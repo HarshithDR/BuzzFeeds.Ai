@@ -130,6 +130,37 @@ def main():
             with col:
                 st.markdown(f"<div style='background-color: #76c7c0; padding: 5px; border-radius: 5px; display: inline-block;'>{interest} <span style='cursor: pointer;' onclick='window.location.reload();'>❌</span></div>", unsafe_allow_html=True)
 
+
+
+
+
+        button_style = """
+        <style>
+        button {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none;
+            padding: 10px 20px; /* Top and bottom padding 10px, left and right padding 20px */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 8px; /* Rounded corners */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker shade of green */
+        }
+        </style>
+        """
+
+        st.markdown(button_style, unsafe_allow_html=True)
+
+
+
+
         # Button to submit and navigate to the second page
         if st.button("Submit"):
 
@@ -176,6 +207,7 @@ def main():
     elif st.session_state.page == 'second':
 
         st.set_page_config(layout="wide")
+        st.title("Buzz Feeds.AI")
         st.title("Your Feed")
 
         def display_category_videos():
@@ -274,7 +306,7 @@ def main():
 
     elif st.session_state.get('page') == 'third':
         st.set_page_config(layout="wide")  # Set the layout to "wide"
-
+        st.title("Buzz Feeds.AI")
         col1, col2 = st.columns([1, 1])  # Create columns
 
         with col1:
