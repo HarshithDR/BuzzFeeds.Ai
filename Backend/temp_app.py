@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
-# from flow import *
-# from db_functions import *
-import time
+from flow import *
+from db_functions import *
+
 app = Flask(__name__)
 
 # print(setup_db())
@@ -13,12 +13,12 @@ def userinterest():
     customer_id = data.get('customer_id')
     user_interest = data.get('interests')
     print(user_interest, customer_id)
-    # report = set_user_interests(customer_id,user_interest)
+    report = set_user_interests(customer_id,user_interest)
     # if report['success']:
     #     print("flow started running background")
-    #     start_flow()  
+    #     start_flow()
     # print(2342342143)
-    return ''
+    return report
 
 @app.route('/newsfeed', methods=['POST','GET'])
 def newsfeed():
@@ -62,17 +62,17 @@ def url_source():
     print(id)
     return {}
 
-@app.route('/chat_query', methods=['POST', 'GET'])
+@app.route('/chat_query', methods=['POST','GET'])
 def chat_query():
     data = request.json
-    user_question = data.get('question')
-
-    if user_question:
-        # Delay the response by 1 second
-        time.sleep(5)
-        return jsonify({'Response': user_question})
-    else:
-        return jsonify({'Error': 'No Question !!'})
+    user_question=data.get('question')
+    # if user_question:
+        # bot_response=run_chatbot(user_question)
+        # return jsonify({'Response':bot_response})
+    # else:
+    #     return jsonify({'Error':'No Question !!'})
+    print(user_question)
+    return "hi how are you?"
 
 if __name__ == '__main__':
     # Run the app on http://localhost:5000/ by default

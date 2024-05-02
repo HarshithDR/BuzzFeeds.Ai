@@ -27,7 +27,7 @@ cust_id = []
 
 
 def send_question(question):
-    url = 'http://127.0.0.1:5000/chat_query'  # Adjust the URL/port as necessary
+    url = 'http://127.0.0.1:5001/chat_query'  # Adjust the URL/port as necessary
     response = requests.post(url, json={"question": question})
     if response.status_code == 200:
         return response.json().get('Response', 'No response from server')
