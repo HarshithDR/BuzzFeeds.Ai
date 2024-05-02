@@ -1,5 +1,6 @@
 # run this code using this command
 # streamlit run real_front_end.py --server.baseUrlPath /.streamlit/config.toml
+base_path = "C:/Users/amith/Downloads/Google Hack/GoogleAIHackathon/"
 
 import streamlit as st
 import json
@@ -31,21 +32,17 @@ def create_website_iframe(url, width=100, height=300):
 
 
 def send_customer_id(customer_id):
-    # URL to which the request will be sent
     news_feed_url = 'http://127.0.0.1:5001/newsfeed'
-
-    # Send a GET request with customer_id as a query parameter
     response = requests.get(news_feed_url, params={"customer_id": customer_id})
-
-    # Check the response
     if response.status_code == 200:
-        # Print the JSON data received from the server
         data = response.json()
+        st.session_state.interests_data = data  # Store the data in session_state
         print("Output from the server:", data)
         return data
     else:
         print(f"Failed to retrieve data: {response.status_code} - {response.text}")
         return None
+
 
 
 def load_lottiefile(filepath: str):
@@ -159,61 +156,78 @@ def main():
     elif st.session_state.page == 'second':
 
         st.set_page_config(layout="wide")
-        st.title("Featured Videos")
+        st.title("Your Feed")
+
+        def display_category_videos():
+            if 'interests_data' in st.session_state:
+                for interest, videos in st.session_state.interests_data.items():
+                    st.header(interest)  # Use the interest as a header
+                    cols = st.columns(4)  # Assuming you want 4 columns of videos
+                    for i, video_info in enumerate(videos):
+                        video_path = base_path +video_info['video']
+                        video_url = video_info['link']
+                        with cols[i % 4]:
+                            st.video(video_path)
+                            if st.button('Watch on Website', key=f'btn_{interest}_{i}'):
+                                st.session_state['video_url'] = video_url  # Store URL in session_state
+                                st.session_state.page = 'third'  # Navigate to the third page
+                                st.experimental_rerun()
+            else:
+                st.write("No video data available")
 
         # Function to load video links from a file and display them
-        def display_category_videos(category_name, file_name):
-            st.header(category_name)
-
-            # Read video links from the text file
-            with open(file_name, 'r') as file:
-                video_links = [link.strip() for link in file.readlines()]
-
-            # Define the number of columns
-            cols = st.columns(4)  # Creates 4 columns
-
-            # Pagination logic
-            num_columns = 4
-            num_videos = len(video_links)
-            num_pages = (num_videos - 1) // num_columns + 1
-
-            # Ensure each category has its own page tracking
-            if f'current_page_{category_name}' not in st.session_state:
-                st.session_state[f'current_page_{category_name}'] = 1
-
-            start_index = (st.session_state[f'current_page_{category_name}'] - 1) * num_columns
-            end_index = min(start_index + num_columns, num_videos)
-
-            # Display videos for the current page
-            for index in range(start_index, end_index):
-                with cols[index % num_columns]:
-                    st.markdown(
-                        f"""
-                        <iframe width="100%" height="250px" src="{video_links[index].replace('watch?v=', 'embed/')}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        """,
-                        unsafe_allow_html=True
-                    )
-                    # Button for internal navigation
-                    if st.button("View Section", key=f'view_{category_name}_{index}'):
-                        st.session_state.page = 'third'
-                        st.experimental_rerun()
-
-
-
-            # Pagination controls
-            if num_pages > 1:
-                st.write("")  # Add some space between videos and pagination controls
-                if st.session_state[f'current_page_{category_name}'] > 1:
-                    if st.button("Previous", key=f'prev_{category_name}'):
-                        st.session_state[f'current_page_{category_name}'] -= 1
-                        st.experimental_rerun()
-                if st.session_state[f'current_page_{category_name}'] < num_pages:
-                    if st.button("Next", key=f'next_{category_name}'):
-                        st.session_state[f'current_page_{category_name}'] += 1
-                        st.experimental_rerun()
-
-        # Display categories
-        display_category_videos("Interest 1", "videos.txt")
+        # def display_category_videos(category_name, file_name):
+        #     st.header(category_name)
+        #
+        #     # Read video links from the text file
+        #     with open(file_name, 'r') as file:
+        #         video_links = [link.strip() for link in file.readlines()]
+        #
+        #     # Define the number of columns
+        #     cols = st.columns(4)  # Creates 4 columns
+        #
+        #     # Pagination logic
+        #     num_columns = 4
+        #     num_videos = len(video_links)
+        #     num_pages = (num_videos - 1) // num_columns + 1
+        #
+        #     # Ensure each category has its own page tracking
+        #     if f'current_page_{category_name}' not in st.session_state:
+        #         st.session_state[f'current_page_{category_name}'] = 1
+        #
+        #     start_index = (st.session_state[f'current_page_{category_name}'] - 1) * num_columns
+        #     end_index = min(start_index + num_columns, num_videos)
+        #
+        #     # Display videos for the current page
+        #     for index in range(start_index, end_index):
+        #         with cols[index % num_columns]:
+        #             st.markdown(
+        #                 f"""
+        #                 <iframe width="100%" height="250px" src="{video_links[index].replace('watch?v=', 'embed/')}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        #                 """,
+        #                 unsafe_allow_html=True
+        #             )
+        #             # Button for internal navigation
+        #             if st.button("View Section", key=f'view_{category_name}_{index}'):
+        #                 st.session_state.page = 'third'
+        #                 st.experimental_rerun()
+        #
+        #
+        #
+        #     # Pagination controls
+        #     if num_pages > 1:
+        #         st.write("")  # Add some space between videos and pagination controls
+        #         if st.session_state[f'current_page_{category_name}'] > 1:
+        #             if st.button("Previous", key=f'prev_{category_name}'):
+        #                 st.session_state[f'current_page_{category_name}'] -= 1
+        #                 st.experimental_rerun()
+        #         if st.session_state[f'current_page_{category_name}'] < num_pages:
+        #             if st.button("Next", key=f'next_{category_name}'):
+        #                 st.session_state[f'current_page_{category_name}'] += 1
+        #                 st.experimental_rerun()
+        #
+        # # Display categories
+        display_category_videos()
 
 
 
@@ -226,7 +240,10 @@ def main():
 
         with col1:
             st.subheader("Embedded Website")
-            embed_website(url = 'https://www.wired.com/2017/08/instagram/')
+            if 'video_url' in st.session_state:
+                embed_website(url=st.session_state['video_url'])  # Embed the website using the stored URL
+            else:
+                st.write("No URL provided.")
 
         with col2:
             st.header("Chat with Us")

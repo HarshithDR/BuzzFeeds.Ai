@@ -42,11 +42,12 @@ def newsfeed():
 
         output = {
             "interest1": [
-                {"video": "Backend\\json_folder\\Google_adds_more_AI_in_shopping.json", "link": "www.htolh.com"},
+                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com"},
+                {"video": "Backend/final_video_folder/output_9ee7ac98-492a-40b7-a1f9-37e1cde8c357.mp4", "link": "https://www.wikipedia.com"}
                 # Add other items here if necessary
             ],
             "interest2": [
-                {"video": "path_to_video_here", "link": "link_to_video_here"}  # Example placeholder
+                {"video": "Backend/final_video_folder/output_44699a1d-0295-41d3-8f2b-194ec63baca3.mp4", "link": "https://www.wikipedia.com"}  # Example placeholder
                 # Add other items here if necessary
             ]
         }
