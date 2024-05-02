@@ -1,4 +1,3 @@
-
 from news_folder.news_api import *
 from video_gen.dalle_code import *
 from video_gen.gemini_api import *
@@ -6,8 +5,15 @@ from video_gen.image_to_video_generator import *
 from audio_convert_and_final_video_generator.caption_creater_and_video_audio_merger import *
 from audio_convert_and_final_video_generator.text_to_audio_converter import *
 from db_functions import *
-# from dataclasses import dataclass
+from chat_query.query import *
 
+
+def q_and_a(id, question):
+    json_path = retrieve_json_path_from_id(id)[0][0]
+    answer = file_load(json_path,question)
+    return answer
+
+# from dataclasses import dataclass
 # @dataclass
 # class DataObject:
 #     def __init__(self,interest, json_url,video_url):
