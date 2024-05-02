@@ -11,7 +11,7 @@ from streamlit_lottie import st_lottie
 import json
 # Suppress the specific warning related to calling st.rerun() within a callback
 warnings.filterwarnings('ignore', message="calling st.rerun() within a callback is a no-op")
-
+import requests
 
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
@@ -107,8 +107,18 @@ def main():
                     "customer_id": customer_id,
                     "interests": st.session_state.interests
                 }
-                with open('interests_reference.json', 'w') as json_file:
-                    json.dump(data, json_file, indent=4)
+
+                # URL to which the request will be sent
+                url = 'http://127.0.0.1:5001/interests'
+
+                # Send a POST request
+                response = requests.post(url, json=data)
+
+                # Check the response
+                if response.status_code == 200:
+                    print("Data successfully sent to the server!")
+                else:
+                    print(f"Failed to send data: {response.status_code} - {response.text}")
 
 
 
