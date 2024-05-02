@@ -23,6 +23,19 @@ if 'current_page' not in st.session_state:
 
 
 cust_id = []
+
+
+
+def send_question(question):
+    url = 'http://127.0.0.1:5000/chat_query'  # Adjust the URL/port as necessary
+    response = requests.post(url, json={"question": question})
+    if response.status_code == 200:
+        return response.json().get('Response', 'No response from server')
+    else:
+        return f"Error: {response.status_code} - {response.text}"
+
+
+
 # Function to create an iframe embedding a website
 def create_website_iframe(url, width=100, height=300):
     iframe = f"""
@@ -272,12 +285,24 @@ def main():
             col_send, col_clear = st.columns(2)
             with col_send:
                 if st.button("Send", key="send_button"):
-                    # Append user's question to the chat history
-                    response = "Hello, how are you doing?"
-                    if "chat_history" not in st.session_state:
-                        st.session_state.chat_history = []
-                    st.session_state.chat_history.append(f"You: {chat_input}")
-                    st.session_state.chat_history.append(f"Response: {response}")
+                    if chat_input:  # Ensure there is a question to send
+                        response = send_question(chat_input)
+                        if "chat_history" not in st.session_state:
+                            st.session_state.chat_history = []
+                        st.session_state.chat_history.append(f"You: {chat_input}")
+                        st.session_state.chat_history.append(f"Response: {response}")
+                    else:
+                        st.error("Please enter a question.")
+
+
+
+                # if st.button("Send", key="send_button"):
+                #     # Append user's question to the chat history
+                #     response = "Hello, how are you doing?"
+                #     if "chat_history" not in st.session_state:
+                #         st.session_state.chat_history = []
+                #     st.session_state.chat_history.append(f"You: {chat_input}")
+                #     st.session_state.chat_history.append(f"Response: {response}")
             with col_clear:
                 if st.button("Clear Chat", key="clear_chat"):
                     # Clear the chat history
