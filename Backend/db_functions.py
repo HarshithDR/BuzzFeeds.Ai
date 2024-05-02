@@ -80,5 +80,4 @@ def set_feed_details(data):
     except Exception as e:
         return {"success" : False, "error_message" : str(e)}
         
-
 # print(accessuserfeed('testuser123@gmail.com'))
