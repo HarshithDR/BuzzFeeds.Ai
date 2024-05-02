@@ -40,3 +40,11 @@ val = 'testuser123@gmail.com'
 sql = f'Select interests from summaraize.interests where useremailid = {val}'
 cursor.execute(sql)
 print(cursor.fetchall())
+
+
+# use this
+
+# val = 'testuser123@gmail.com'
+# sql = 'SELECT interests FROM summaraize.interests WHERE useremailid = %s'
+# cursor.execute(sql, (val,))
+# print(cursor.fetchall())
