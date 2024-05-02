@@ -33,13 +33,16 @@ def set_user_interests(useremail,interests):
 
 def get_feeddetails(interests,userId):
   try:
-      db = setup_db()
-      cursor = db.cursor()
+    db = setup_db()
+    cursor = db.cursor()
       # Constructing the placeholders for the IN clause
-      placeholders = ','.join(['%s' for _ in range(len(interests))])
-      sql = f"SELECT * FROM summaraize.newsfeedinfo WHERE domain IN ({placeholders}) LIMIT 25;"
-      cursor.execute(sql, (interests))
-      return {"success" : True, "user" : userId, "newsFeed" : cursor.fetchall()}
+    #   placeholders = interests
+    placeholders = ', '.join(['%s'] * len(interests))
+
+    sql = f"SELECT * FROM summaraize.newsfeedinfo WHERE domain IN ({placeholders}) LIMIT 25;"
+    cursor.execute(sql, interests)
+    data  = cursor.fetchall()
+    return {"success" : True, "user" : userId, "newsFeed" : data}
   except Exception as e:
       return {"success" : False, "error_message" : str(e)}
 
@@ -48,16 +51,34 @@ def get_userinterests(userid):
         db = setup_db()
         cursor = db.cursor()
         sql = "SELECT interests FROM summaraize.interests where useremailid = %s"
-        cursor.execute(sql, (userid))
+        cursor.execute(sql, (userid,))
         return cursor.fetchall()
     except Exception as e:
         return {"success" : False, "error_message" : str(e)}
   
 def accessuserfeed(userId):
     user_interests = get_userinterests(userId)
-    print("here I am",user_interests)
-    lst_user_interests = user_interests
-    get_feeddetails(lst_user_interests,userId)
-    return {'userId': userId, 'message': 'Im still under build'}
+    # print("here I am",user_interests)
+    fields = [field.strip() for row in user_interests for field in row[0].split(',')]
+    unique_fields = list(set(fields))
+    # print(unique_fields)
+    lst_user_interests = unique_fields
+    # print(get_feeddetails(lst_user_interests,userId))
+    return get_feeddetails(lst_user_interests,userId)
 
-accessuserfeed('testuser123@gmail.com')
+def set_feed_details(data):
+    try:
+        db = setup_db()
+        cursor = db.cursor()
+        sql = "INSERT INTO newsfeedinfo (domain, json_path, videopath)"
+        cursor.execute(sql, data)
+        last_insert_id = cursor.lastrowid
+        db.commit()
+        db.close()
+        print(cursor.rowcount, "record inserted.")
+        return {"success" : True, "record_id" : last_insert_id}
+    except Exception as e:
+        return {"success" : False, "error_message" : str(e)}
+        
+
+# print(accessuserfeed('testuser123@gmail.com'))
