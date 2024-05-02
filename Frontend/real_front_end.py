@@ -130,14 +130,18 @@ def main():
         # Button to submit and navigate to the second page
         if st.button("Submit"):
 
-            # send the data to back end from here
             if customer_id and st.session_state.interests:
-                # Serialize and save data to a JSON file
+                # Join all interests in the list with a comma and a space
+                formatted_interests = ", ".join(st.session_state.interests)
+
+                # Creating the data dictionary
                 data = {
                     "customer_id": customer_id,
-                    "interests": st.session_state.interests
+                    "interests": formatted_interests
                 }
 
+                print("#"*100)
+                print(data)
                 cust_id.append(data["customer_id"])
                 # URL to which the request will be sent
                 interests_url = 'http://127.0.0.1:5001/interests'
