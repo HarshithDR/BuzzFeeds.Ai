@@ -107,7 +107,7 @@ def main():
                     "customer_id": customer_id,
                     "interests": st.session_state.interests
                 }
-                with open('customer_data.json', 'w') as json_file:
+                with open('interests_reference.json', 'w') as json_file:
                     json.dump(data, json_file, indent=4)
 
 
