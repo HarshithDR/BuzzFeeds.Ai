@@ -64,7 +64,7 @@ def main():
         lottie_animation = load_lottiefile(lottie_animation_path)
 
 
-        st_lottie(lottie_animation,height=300, width=600, key="example")
+        st_lottie(lottie_animation,height=200, width=600, key="example")
         st.markdown("""
             ### Use the buttons below to navigate through the application.
             """, unsafe_allow_html=True)
