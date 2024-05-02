@@ -7,7 +7,8 @@ import streamlit.components.v1 as components
 # Initialize a session state variable for page management and interests
 import streamlit.components.v1
 import warnings
-
+from streamlit_lottie import st_lottie
+import json
 # Suppress the specific warning related to calling st.rerun() within a callback
 warnings.filterwarnings('ignore', message="calling st.rerun() within a callback is a no-op")
 
@@ -25,6 +26,13 @@ def create_website_iframe(url, width=100, height=300):
     <iframe src="{url}" width="{width}%" height="{height}px" frameborder="0" allowfullscreen></iframe>
     """
     return iframe
+
+
+def load_lottiefile(filepath: str):
+    """ Load a Lottie animation from a JSON file located at filepath """
+    with open(filepath, 'r') as file:
+        return json.load(file)
+
 
 
 def embed_website(url):
@@ -50,7 +58,17 @@ def main():
 
     # Home page
     if st.session_state.page == 'home':
-        st.title("Customer Interest Form")
+        st.title("Buzz Feeds.AI")
+
+        lottie_animation_path = "assets/Animation - 1714618233102.json"
+        lottie_animation = load_lottiefile(lottie_animation_path)
+
+
+        st_lottie(lottie_animation,height=300, width=600, key="example")
+        st.markdown("""
+            ### Use the buttons below to navigate through the application.
+            """, unsafe_allow_html=True)
+
 
         # Input field for customer ID
         customer_id = st.text_input("Customer ID", "")
