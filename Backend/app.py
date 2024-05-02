@@ -1,10 +1,9 @@
 from flask import Flask, jsonify, request
-# from db_functions import *
+from db_functions import *
 
 app = Flask(__name__)
 
 # print(setup_db())
-
 
 # connection done
 @app.route('/interests', methods=['POST','GET'])
@@ -22,7 +21,7 @@ def userinterest():
 
 
 
-@app.route('/newsfeed', methods=['GET'])
+@app.route('/newsfeed', methods=['POST','GET'])
 def newsfeed():
     # print('Im here',request.args.get('user_id'))
     # data = request.json
