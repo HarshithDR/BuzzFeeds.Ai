@@ -56,7 +56,7 @@ def get_userinterests(userid):
         return cursor.fetchall()
     except Exception as e:
         return {"success" : False, "error_message" : str(e)}
-  
+
 def accessuserfeed(userId):
     user_interests = get_userinterests(userId)
     # print("here I am",user_interests)
@@ -84,6 +84,19 @@ def set_feed_details(data):
         return {"success" : True, "record_id" : last_insert_id}
     except Exception as e:
         return {"success" : False, "error_message" : str(e)}
+    
+    
+def retrieve_json_path_from_id(id):
+    try:
+        db = setup_db()
+        cursor = db.cursor()
+        sql = "SELECT json_path FROM newsfeedinfo WHERE id = %s"
+        cursor.execute(sql,(id,))
+        return cursor.fetchall()
+    except Exception as e:
+        return {"success" : False, "error_message" : str(e)}
+    
+# print(retrieve_json_path_from_id(1))
         
 # print(accessuserfeed('testuser123@gmail.com'))
 # print(set_feed_details({"interest":"ai","json_url":"lasdghasd.json","video_url":"http://sldfhsd.com"}))

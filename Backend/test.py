@@ -74,12 +74,16 @@
 # from dataclasses import dataclass
 
 # @dataclass
-class Position():
-    def __init__(self) -> None:
-        name = ""
-        lat = 0
+# class Position():
+#     def __init__(self) -> None:
+#         name = ""
+#         lat = 0
     
-data = Position()
-data.name = "sdhgsdfg"
-data.lat = 324
-print(data)
+# data = Position()
+# data.name = "sdhgsdfg"
+# data.lat = 324
+# print(data)
+
+
+# data = [('ssss.json',)]
+# print(type(data[0][0]))
