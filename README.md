@@ -37,6 +37,11 @@ Transform the way you consume information with BuzzFeeds.Ai. Stay informed, stay
 
 4. Navigate to http://localhost:8501 in your browser
 
+
+### Output video folder
+
+Link - [https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder] (https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder)
+
 ### Contrubutors
 
 - Harshith Deshalli Ravi
