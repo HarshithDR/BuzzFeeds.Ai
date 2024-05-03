@@ -319,7 +319,9 @@ def main():
         with col1:
             st.subheader("Embedded Website")
             if 'video_url' in st.session_state:
-                embed_website(url=st.session_state['video_url'])  # Embed the website using the stored URL
+                url = "https://www.wired.com/story/taking-baby-steps-toward-the-ai-meeting-singularity/"
+                # embed_website(url=st.session_state['video_url'])  # Embed the website using the stored URL
+                embed_website(url=url)
             else:
                 st.write("No URL provided.")
 
