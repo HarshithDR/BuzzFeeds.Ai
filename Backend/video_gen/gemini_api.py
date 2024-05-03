@@ -11,7 +11,7 @@ def summariaze(prompt):
     response = model.generate_content(prompt + '/n Summariaze the above content in 2 sentences or 100 words')
     return response.text
 
-def file_load(json_path):
+def file_load_1(json_path):
     with open(json_path, 'r', encoding='utf-8') as f:
         captions_data = json.load(f)
 

@@ -1,6 +1,6 @@
 # run this code using this command
 # streamlit run real_front_end.py --server.baseUrlPath /.streamlit/config.toml
-base_path = "C:/Users/amith/Downloads/Google Hack/GoogleAIHackathon/"
+base_path = "C:/Users/harsh/Desktop/Python Projects/GoogleAIHackathon/"
 
 import streamlit as st
 import json
@@ -26,18 +26,24 @@ cust_id = []
 
 
 
+# def send_question(question):
+#     url = 'http://127.0.0.1:5001/chat_query'  # Adjust the URL/port as necessary
+#     response = requests.post(url, json={"question": question})
+#     if response.status_code == 200:
+#         return response.json().get('Response', 'No response from server')
+#     else:
+#         return f"Error: {response.status_code} - {response.text}"
+
+
+
 def send_question(question):
     url = 'http://127.0.0.1:5001/chat_query'  # Adjust the URL/port as necessary
     response = requests.post(url, json={"question": question})
     if response.status_code == 200:
-        return response.json().get('Response', 'No response from server')
+        return f"{response.text}"
     else:
-        return f"Error: {response.status_code} - {response.text}"
-
-
-
-
-
+        return response.json().get('No response from server')
+        
 
 # Function to create an iframe embedding a website
 def create_website_iframe(url, width=100, height=300):
@@ -49,7 +55,8 @@ def create_website_iframe(url, width=100, height=300):
 
 def send_customer_id(customer_id):
     news_feed_url = 'http://127.0.0.1:5001/newsfeed'
-    response = requests.get(news_feed_url, params={"customer_id": customer_id})
+    print({"customer_id": customer_id})
+    response = requests.get(news_feed_url, json={"customer_id": customer_id})
     if response.status_code == 200:
         data = response.json()
         st.session_state.interests_data = data  # Store the data in session_state
@@ -329,7 +336,7 @@ def main():
                         if "chat_history" not in st.session_state:
                             st.session_state.chat_history = []
                         st.session_state.chat_history.append(f"You: {chat_input}")
-                        st.session_state.chat_history.append(f"Response: {response}")
+                        st.session_state.chat_history.append(f"Ai: {response}")
                     else:
                         st.error("Please enter a question.")
 

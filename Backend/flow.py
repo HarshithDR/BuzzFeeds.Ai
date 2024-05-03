@@ -10,7 +10,10 @@ from chat_query.query import *
 def set_query_id(id):
     IdStore.add_id(id)
     print("id stored" + str(id))
- 
+
+def get_query_id():
+    return "query id is :"+ IdStore.get_id()
+
 def q_and_a(question):
     id = IdStore.get_id()
     json_path = retrieve_json_path_from_id(id)[0][0]
@@ -36,7 +39,7 @@ def api_and_json_extraction(interests):
     return list_of_all_the_json_filepaths
 
 def llm_summarizer(json_path):
-    summary = file_load(json_path)
+    summary = file_load_1(json_path)
     return summary
 
 def audio_conv(summary):
@@ -75,4 +78,4 @@ def start_flow(interest):
             data.video_url = video_path
             set_feed_details(data)
         
-# start("ai")
+# start_flow("soccer")

@@ -14,9 +14,9 @@ def userinterest():
     user_interest = data.get('interests')
     print(user_interest, customer_id)
     report = set_user_interests(customer_id,user_interest)
-    if report['success']:
-        print("flow started running background")
-        start_flow()
+    # if report['success']:
+    #     print("flow started running background")
+    #     start_flow()
     # print(2342342143)
     return report
 
@@ -34,6 +34,7 @@ def newsfeed():
 
     # Retrieve customer_id from query parameters
     data = request.json
+    print(data)
     # customer_id = request.args.get('customer_id')
     customer_id = data.get('customer_id')
     print(customer_id)
@@ -54,12 +55,13 @@ def url_source():
     id = data.get('id')
     # print(id)
     set_query_id(id)
-    return ["got the id"+id]
+    return ["got the id "+str(id)]
 
 @app.route('/chat_query', methods=['POST','GET'])
 def chat_query():
     data = request.json
     user_question=data.get('question')
+    print(get_query_id)
     # if user_question:
         # bot_response=run_chatbot(user_question)
         # return jsonify({'Response':bot_response})
