@@ -42,6 +42,9 @@ Transform the way you consume information with BuzzFeeds.Ai. Stay informed, stay
 
 Link - https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/shorts/S6uT16PvaHo/0.jpg)](https://youtube.com/shorts/S6uT16PvaHo)
+
+
 ### Contrubutors
 
 - Harshith Deshalli Ravi
