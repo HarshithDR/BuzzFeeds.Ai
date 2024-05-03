@@ -40,7 +40,7 @@ Transform the way you consume information with BuzzFeeds.Ai. Stay informed, stay
 
 ### Output video folder
 
-Link - [https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder] (https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder)
+Link - https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder
 
 ### Contrubutors
 
