@@ -42,7 +42,14 @@ Transform the way you consume information with BuzzFeeds.Ai. Stay informed, stay
 
 Link - https://github.com/HarshithDR/BuzzFeeds.Ai/tree/master/Backend/final_video_folder
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/shorts/S6uT16PvaHo/0.jpg)](https://youtube.com/shorts/S6uT16PvaHo)
+- Youtube links of the final output:
+- Link 1 : https://youtube.com/shorts/S6uT16PvaHo
+- Link 2 : https://youtube.com/shorts/8ezrpowYWCk
+- Link 3 : https://youtube.com/shorts/KXduz_VXV-M
+- Link 4 : https://www.youtube.com/shorts/MvQUiyW1PHk
+- Link 5 : https://www.youtube.com/shorts/Hs_rD1gAJHU
+- Link 6 : https://www.youtube.com/shorts/u5ev3uR-rGQ
+- Link 7 : https://www.youtube.com/shorts/Vu_VZNcQcq0
 
 
 ### Contrubutors
