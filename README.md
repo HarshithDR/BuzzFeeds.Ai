@@ -22,6 +22,13 @@ Transform the way you consume information with BuzzFeeds.Ai. Stay informed, stay
 
 3. Install software dependences.
 
+4. Create the .env file in the root folder and load the below code with your api keys
+
+   ```bash
+   GEMINI_API_KEY = "Your Vertex ai Api key"
+   OPENAI_API_KEY = "Your OpenAi Dall-e Api key"
+   FAL_API_KEY = "Fal.ai video gen Api key"
+
 ### Usage
 
 1. Launch the backend:
